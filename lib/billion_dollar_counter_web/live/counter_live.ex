@@ -8,6 +8,9 @@ defmodule BillionDollarCounterWeb.CounterLive do
 
   @impl true
   def mount(_params, %{"remote_ip" => remote_ip} = session, socket) do
+    IO.puts("HERE REMOTE IP")
+    IO.puts(remote_ip |> :inet.ntoa())
+    IO.puts("HERE REMOTE IP")
     BillionDollarCounterWeb.Endpoint.subscribe(@topic)
     Presence.track(
       self(),
