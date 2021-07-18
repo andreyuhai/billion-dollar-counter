@@ -10,8 +10,12 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :billion_dollar_counter, BillionDollarCounterWeb.Endpoint,
-  url: [host: "billion-dollar-counter.gigalixirapp.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443],
+  # url: [host: "billion-dollar-counter.gigalixirapp.com", port: 443],
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
+  force_ssl: [hsts: true]
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -52,10 +56,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-config :billion_dollar_counter, BillionDollarCounterWeb.Endpoint,
-  http: [port: {:system, "PORT"}], # Possibly not needed, but doesn't hurt
-  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443],
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
-  server: true
-
 import_config "prod.secret.exs"
