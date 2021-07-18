@@ -1,4 +1,9 @@
 <section class="phx-hero">
   <div><%= @counter_value %></div>
   <%= link "Increment", to: "#", phx_click: "inc", class: "button"%>
+  <div>
+    <%= for {ip, %{metas: metas}} <- @presence_list do %>
+      <span><%= ip %>: <%= length(metas) %></span>
+    <% end %>
+  </div>
 </section>
