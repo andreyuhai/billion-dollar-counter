@@ -36,7 +36,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
     Counter.increment()
     counter_value = Counter.value()
     socket = assign(socket, counter_value: counter_value)
-    BillionDollarCounterWeb.Endpoint.broadcast(@topic, "inc", %{counter_value: counter_value})
+    BillionDollarCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", %{counter_value: counter_value})
 
     {:noreply, socket}
   end
