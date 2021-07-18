@@ -7,12 +7,12 @@ defmodule BillionDollarCounterWeb.CounterLive do
   @topic "counter"
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount(_params, %{"remote_ip" => remote_ip} = session, socket) do
     BillionDollarCounterWeb.Endpoint.subscribe(@topic)
     Presence.track(
       self(),
       @topic,
-      session.remote_ip |> :inet.ntoa(),
+      remote_ip |> :inet.ntoa(),
       %{
         online_at: inspect(System.system_time(:second))
       }
