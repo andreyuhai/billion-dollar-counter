@@ -2,8 +2,10 @@
   <div><%= @counter_value %></div>
   <%= link "Increment", to: "#", phx_click: "inc", class: "button"%>
   <div>
+    <ul>
     <%= for {ip, %{metas: metas}} <- @presence_list do %>
-      <span><%= ip %>: <%= length(metas) %></span>
+      <li><%= ip %>: <%= length(metas) %></li>
     <% end %>
+    </ul>
   </div>
 </section>
