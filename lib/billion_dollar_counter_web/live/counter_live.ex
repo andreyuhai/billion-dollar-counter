@@ -40,7 +40,13 @@ defmodule BillionDollarCounterWeb.CounterLive do
     {:noreply, socket}
   end
 
-  def handle_info(%{event: "inc", payload: payload} = msg, socket) do
+  @impl true
+  def handle_info(%{event: "inc", payload: payload}, socket) do
     {:noreply, assign(socket, payload)}
+  end
+
+  @impl true
+  def handle_info(%{event: "presence_diff"} = info, socket) do
+    {:noreply, assign(socket, :presence_list, Presence.list(@topic))}
   end
 end
