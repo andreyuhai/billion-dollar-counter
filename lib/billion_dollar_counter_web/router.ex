@@ -8,6 +8,7 @@ defmodule BillionDollarCounterWeb.Router do
     plug :put_root_layout, {BillionDollarCounterWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_client_ip
   end
 
   pipeline :api do
@@ -40,5 +41,9 @@ defmodule BillionDollarCounterWeb.Router do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: BillionDollarCounterWeb.Telemetry
     end
+  end
+
+  defp put_client_ip(conn, _) do
+    Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
   end
 end
