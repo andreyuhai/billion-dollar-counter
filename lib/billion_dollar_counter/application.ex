@@ -13,6 +13,8 @@ defmodule BillionDollarCounter.Application do
       BillionDollarCounterWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: BillionDollarCounter.PubSub},
+      # Start Presence
+      BillionDollarCounterWeb.Presence,
       # Start the Endpoint (http/https)
       BillionDollarCounterWeb.Endpoint
       # Start a worker by calling: BillionDollarCounter.Worker.start_link(arg)
