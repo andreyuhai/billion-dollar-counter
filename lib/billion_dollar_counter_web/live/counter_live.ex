@@ -11,6 +11,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
     BillionDollarCounterWeb.Endpoint.subscribe(@topic)
     case get_connect_info(socket) do
       %{} = info ->
+        IO.inspect(info)
         Presence.track(
           self(),
           @topic,
