@@ -35,6 +35,7 @@ defmodule BillionDollarCounterWeb.Endpoint do
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :billion_dollar_counter
   end
 
+  plug RemoteIp
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",
     cookie_key: "request_logger"
@@ -50,6 +51,5 @@ defmodule BillionDollarCounterWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug RemoteIp
   plug BillionDollarCounterWeb.Router
 end
