@@ -50,5 +50,6 @@ defmodule BillionDollarCounterWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug RemoteIp
   plug BillionDollarCounterWeb.Router
 end
