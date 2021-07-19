@@ -8,7 +8,7 @@ defmodule BillionDollarCounterWeb.Router do
     plug :put_root_layout, {BillionDollarCounterWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :put_client_ip
+    plug :look_up_ip
   end
 
   pipeline :api do
@@ -43,7 +43,18 @@ defmodule BillionDollarCounterWeb.Router do
     end
   end
 
-  defp put_client_ip(conn, _) do
-    Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
+  # defp put_client_ip(conn, _) do
+  #   Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
+  # end
+
+  defp look_up_ip(conn, _) do
+    ip_metadata = case GeoIP.lookup(conn.remote_ip) do
+      {:ok, ip_metada} ->
+        ip_metadata
+      {:error, reason} ->
+        %{}
+    end
+
+    Plug.Conn.put_session(conn, :ip_metada, ip_metadata)
   end
 end
