@@ -55,6 +55,6 @@ defmodule BillionDollarCounterWeb.Router do
         %{}
     end
 
-    Plug.Conn.put_session(conn, :ip_metada, ip_metadata)
+    Plug.Conn.put_session(conn, :ip_metadata, ip_metadata)
   end
 end
