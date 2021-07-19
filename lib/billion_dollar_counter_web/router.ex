@@ -49,7 +49,7 @@ defmodule BillionDollarCounterWeb.Router do
 
   defp look_up_ip(conn, _) do
     ip_metadata = case GeoIP.lookup(conn.remote_ip) do
-      {:ok, ip_metada} ->
+      {:ok, ip_metadata} ->
         ip_metadata
       {:error, reason} ->
         %{}
