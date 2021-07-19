@@ -44,7 +44,6 @@ defmodule BillionDollarCounterWeb.Router do
   end
 
   defp put_client_ip(conn, _) do
-    IO.inspect(conn)
     Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
   end
 end
