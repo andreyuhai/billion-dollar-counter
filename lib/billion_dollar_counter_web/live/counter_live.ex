@@ -12,7 +12,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
     Presence.track(
       self(),
       @topic,
-      ip_metadata.country,
+      ip_metadata.country_name,
       ip_metadata
     )
     counter_value = Counter.value()
