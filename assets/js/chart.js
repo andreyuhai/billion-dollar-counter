@@ -42,19 +42,7 @@ imageSeriesTemplate.propertyFields.latitude = "latitude";
 imageSeriesTemplate.propertyFields.longitude = "longitude";
 
 // Add data for the three cities
-imageSeries.data = [{
-  "latitude": 48.856614,
-  "longitude": 2.352222,
-  "title": "Paris"
-}, {
-  "latitude": 40.712775,
-  "longitude": -74.005973,
-  "title": "New York"
-}, {
-  "latitude": 49.282729,
-  "longitude": -123.120738,
-  "title": "Vancouver"
-}];
+imageSeries.data = [];
 
 export let Hooks = {};
 
