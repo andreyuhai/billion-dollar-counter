@@ -7,6 +7,9 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@amcharts/amcharts4": "^4.10.20",
+    "@amcharts/amcharts4-fonts": "^4.0.1",
+    "@amcharts/amcharts4-geodata": "^4.1.21",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "phoenix_live_view": "file:../deps/phoenix_live_view",
