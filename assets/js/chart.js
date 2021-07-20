@@ -49,10 +49,10 @@ imageSeriesTemplate.propertyFields.longitude = "longitude";
 // Add data for the three cities
 imageSeries.data = [];
 
-export let Hooks = {};
-
-Hooks.Chart = {
+Chart = {
   mounted() {
     this.handleEvent("update_presence_list", ({points}) => { console.log(points); imageSeries.data = points })
   }
 }
+
+export default Chart;
