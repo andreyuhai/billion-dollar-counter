@@ -1,13 +1,7 @@
-<section class="phx-hero">
-  <div><%= @counter_value %></div>
-  <%= link "Increment", to: "#", phx_click: "inc", class: "button" %>
-  <div>
-    <span>Online Users</span>
-    <ul>
-    <%= for {country, %{metas: metas}} <- @presence_list do %>
-      <li><%= country %>: <%= length(metas) %></li>
-    <% end %>
-    </ul>
+<section>
+  <div id="counter">
+    <span class="counter-value"><%= @counter_value %></span>
+    <div><%= link "Increment", to: "#", phx_click: "inc", class: "button" %></div>
   </div>
+  <div id="chartdiv" phx-update="ignore" phx-hook="Chart"></div>
 </section>
-<div id="chartdiv" phx-update="ignore" phx-hook="Chart"></div>
