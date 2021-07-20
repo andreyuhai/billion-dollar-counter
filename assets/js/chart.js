@@ -55,3 +55,11 @@ imageSeries.data = [{
   "longitude": -123.120738,
   "title": "Vancouver"
 }];
+
+export let Hooks = {};
+
+Hooks.Chart = {
+  mounted() {
+    this.handleEvent("points", ({points}) => imageSeries.data[points])
+  }
+}
