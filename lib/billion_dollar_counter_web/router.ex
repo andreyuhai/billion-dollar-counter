@@ -18,8 +18,7 @@ defmodule BillionDollarCounterWeb.Router do
   scope "/", BillionDollarCounterWeb do
     pipe_through :browser
 
-    live "/", PageLive, :foo
-    live "/counter", CounterLive, :index
+    live "/", CounterLive, :index
   end
 
   # Other scopes may use custom stacks.
