@@ -20,6 +20,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
       socket
       |> assign(:counter_value, counter_value)
       |> assign(:presence_list, Presence.list(@topic))
+      |> push_event("points", %{points: Presence.list(@topic) |> Map.values |> Enum.map(fn x -> Map.values(x) end)})
     }
   end
 
