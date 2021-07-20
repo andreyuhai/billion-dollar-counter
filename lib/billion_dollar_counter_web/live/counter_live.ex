@@ -49,7 +49,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
     {:noreply,
       socket
       |> assign(:presence_list, Presence.list(@topic))
-      |> push_event("points", %{points: presence_list}
+      |> push_event("update_presence_list", %{presence_list: presence_list}
       )}
   end
 end
