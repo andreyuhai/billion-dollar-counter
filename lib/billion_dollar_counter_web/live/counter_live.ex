@@ -40,13 +40,16 @@ defmodule BillionDollarCounterWeb.CounterLive do
 
   @impl true
   def handle_info(%{event: "presence_diff"} = info, socket) do
+    presence_list = @topic
+                    |> Presence.list()
+                    |> Enum.map(fn {key, value} -> Map.get(value, :metas) end)
+                    |> List.flatten()
+    IO.puts("PRESENCE LIST")
+    IO.inspect(presence_list)
     {:noreply,
       socket
       |> assign(:presence_list, Presence.list(@topic))
-      |> push_event("points", %{points: @topic
-                                        |> Presence.list()
-                                        |> Map.values
-                                        |> Enum.map(fn x -> Map.values(x) end)}
+      |> push_event("points", %{points: presence_list}
       )}
   end
 end
