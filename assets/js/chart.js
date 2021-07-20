@@ -53,6 +53,6 @@ export let Hooks = {};
 
 Hooks.Chart = {
   mounted() {
-    this.handleEvent("points", ({points}) => { console.log(points); imageSeries.data = points })
+    this.handleEvent("update_presence_list", ({points}) => { console.log(points); imageSeries.data = points })
   }
 }
