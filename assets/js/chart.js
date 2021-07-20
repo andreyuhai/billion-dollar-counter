@@ -24,6 +24,11 @@ polygonTemplate.fill = chart.colors.getIndex(0);
 
 polygonSeries.exclude = ["AQ"];
 
+var title = chart.titles.create();
+title.text = "Live User Map";
+title.fontSize = 25;
+title.marginBottom = 30;
+
 // Create image series
 var imageSeries = chart.series.push(new am4maps.MapImageSeries());
 
