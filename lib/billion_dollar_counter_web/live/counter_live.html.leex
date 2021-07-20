@@ -1,6 +1,6 @@
 <section class="phx-hero">
   <div><%= @counter_value %></div>
-  <%= link "Increment", to: "#", phx_click: "inc", class: "button"%>
+  <%= link "Increment", to: "#", phx_click: "inc", class: "button" %>
   <div>
     <span>Online Users</span>
     <ul>
@@ -10,3 +10,4 @@
     </ul>
   </div>
 </section>
+<div id="chartdiv" phx-update="ignore"></div>
