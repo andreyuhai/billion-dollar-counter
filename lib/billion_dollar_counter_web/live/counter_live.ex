@@ -44,8 +44,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
                     |> Presence.list()
                     |> Enum.map(fn {key, value} -> Map.get(value, :metas) end)
                     |> List.flatten()
-    IO.puts("PRESENCE LIST")
-    IO.inspect(presence_list)
+
     {:noreply,
       socket
       |> assign(:presence_list, Presence.list(@topic))
