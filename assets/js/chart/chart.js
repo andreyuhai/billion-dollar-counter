@@ -138,6 +138,9 @@ function createSeries(heatfield) {
 
     // Show new targert series
     currentSeries = worldSeries[data.target].series;
+    console.log("Inside createSeries");
+    console.log(currentSeries);
+    window.currentSeries = currentSeries;
     currentSeries.show();
   });
 
@@ -157,6 +160,11 @@ function setupOnlineUsers(data) {
 
   // Set current series
   currentSeries = worldSeries.series;
+
+  console.log("SETUP END")
+  window.currentSeries = currentSeries;
+  console.log(chart)
+  console.log(currentSeries)
 
   // Process data
   am4core.array.each(data, function(onlineUser) {
@@ -230,6 +238,10 @@ function setupOnlineUsers(data) {
 
   });
 
+  console.log("SETUP END")
+  window.currentSeries = currentSeries;
+  console.log(chart)
+  console.log(currentSeries)
   console.log(worldSeries)
   worldSeries.series.data = worldSeries.markerData;
 }
