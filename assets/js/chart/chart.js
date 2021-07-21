@@ -141,6 +141,7 @@ function createSeries(heatfield) {
     console.log("Inside createSeries");
     console.log(currentSeries);
     window.currentSeries = currentSeries;
+    window.chart = chart;
     currentSeries.show();
   });
 
@@ -161,7 +162,7 @@ function setupOnlineUsers(data) {
   // Set current series
   currentSeries = worldSeries.series;
 
-  console.log("SETUP END")
+  console.log("SETUP START")
   window.currentSeries = currentSeries;
   console.log(chart)
   console.log(currentSeries)
