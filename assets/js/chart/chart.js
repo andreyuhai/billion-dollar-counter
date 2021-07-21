@@ -12,6 +12,22 @@ chart.geodata = am4geodata_worldLow;
 // Set projection
 chart.projection = new am4maps.projections.Miller();
 
+// Add button
+var zoomOut = chart.tooltipContainer.createChild(am4core.ZoomOutButton);
+zoomOut.align = "right";
+zoomOut.valign = "top";
+zoomOut.margin(20, 20, 20, 20);
+zoomOut.events.on("hit", function() {
+  if (currentSeries) {
+    currentSeries.hide();
+  }
+  chart.goHome();
+  zoomOut.hide();
+  currentSeries = worldSeries.series;
+  currentSeries.show();
+});
+zoomOut.hide();
+
 // Create map polygon series
 var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 polygonSeries.useGeodata = true;
@@ -49,10 +65,181 @@ imageSeriesTemplate.propertyFields.longitude = "longitude";
 // Add data for the three cities
 imageSeries.data = [];
 
+// Drill-down map
+
+
+// Creates a series
+function createSeries(heatfield) {
+  var series = chart.series.push(new am4maps.MapImageSeries());
+  series.dataFields.value = heatfield;
+
+  var template = series.mapImages.template;
+  template.verticalCenter = "middle";
+  template.horizontalCenter = "middle";
+  template.propertyFields.latitude = "lat";
+  template.propertyFields.longitude = "long";
+  template.tooltipText = "{name}:\n[bold]{onlineUsers} online user[/]";
+
+  var circle = template.createChild(am4core.Circle);
+  circle.radius = 10;
+  circle.fillOpacity = 0.7;
+  circle.verticalCenter = "middle";
+  circle.horizontalCenter = "middle";
+  circle.nonScaling = true;
+
+  var label = template.createChild(am4core.Label);
+  label.text = "{onlineUsers}";
+  label.fill = am4core.color("#fff");
+  label.verticalCenter = "middle";
+  label.horizontalCenter = "middle";
+  label.nonScaling = true;
+
+  var heat = series.heatRules.push({
+    target: circle,
+    property: "radius",
+    min: 10,
+    max: 30
+  });
+
+  // Set up drill-down
+  series.mapImages.template.events.on("hit", function(ev) {
+
+    // Determine what we've clicked on
+    var data = ev.target.dataItem.dataContext;
+
+    // No id? Individual store - nothing to drill down to further
+    if (!data.target) {
+      return;
+    }
+
+    // Create actual series if it hasn't been yet created
+    if (!worldSeries[data.target].series) {
+      worldSeries[data.target].series = createSeries("count");
+      worldSeries[data.target].series.data = data.markerData;
+    }
+
+    // Hide current series
+    if (currentSeries) {
+      currentSeries.hide();
+    }
+
+    // Control zoom
+    if (data.type == "country") {
+      var statePolygon = polygonSeries.getPolygonById(data.country_code);
+      chart.zoomToMapObject(statePolygon);
+    }
+    else if (data.type == "city") {
+      chart.zoomToGeoPoint({
+        latitude: data.lat,
+        longitude: data.long
+      }, 64, true);
+    }
+    zoomOut.show();
+
+    // Show new targert series
+    currentSeries = worldSeries[data.target].series;
+    currentSeries.show();
+  });
+
+  return series;
+}
+
+var worldSeries = {};
+var currentSeries;
+
+function setupOnlineUsers(data) {
+
+  // Init country-level series
+  worldSeries = {
+    markerData: [],
+    series: createSeries("locations")
+  };
+
+  // Set current series
+  currentSeries = worldSeries.series;
+
+  // Process data
+  am4core.array.each(data, function(onlineUser) {
+
+    // Get user data
+    var onlineUser = {
+      long: onlineUser.longitude,
+      lat: onlineUser.latitude,
+      country_code: onlineUser.country_code,
+      country_name: onlineUser.country_name,
+      zip: onlineUser.zip,
+      city: onlineUser.city
+    };
+
+    // Process world-level data
+    if (worldSeries[onlineUser.country_code] == undefined) {
+      var countryPolygon = polygonSeries.getPolygonById(onlineUser.country_code);
+      if (countryPolygon) {
+
+        // Add world data
+        worldSeries[onlineUser.country_code] = {
+	  country_code: onlineUser.country_code,
+          target: onlineUser.country_code,
+          type: "country",
+          name: countryPolygon.dataItem.dataContext.name,
+          onlineUsers: 1,
+          lat: countryPolygon.visualLatitude,
+          long: countryPolygon.visualLongitude,
+          country: onlineUser.country_code,
+          markerData: []
+        };
+	console.log("Here")
+	console.log(worldSeries)
+        worldSeries.markerData.push(worldSeries[onlineUser.country_code]);
+      }
+      else {
+        // Country not found
+        return;
+      }
+    }
+    else {
+      worldSeries[onlineUser.country_code].onlineUsers++;
+    }
+
+    // Process country-level data
+    if (worldSeries[onlineUser.city] == undefined) {
+      worldSeries[onlineUser.city] = {
+        target: onlineUser.city,
+        type: "city",
+        name: onlineUser.city,
+        onlineUsers: 1,
+        lat: onlineUser.lat,
+        long: onlineUser.long,
+        state: onlineUser.state,
+        markerData: []
+      };
+      worldSeries[onlineUser.country_code].markerData.push(worldSeries[onlineUser.city]);
+    }
+    else {
+      worldSeries[onlineUser.city].onlineUsers++;
+    }
+
+    // Process individual onlineUser
+    worldSeries[onlineUser.city].markerData.push({
+      city: onlineUser.city,
+      onlineUsers: 1,
+      lat: onlineUser.lat,
+      long: onlineUser.long,
+      country_code: onlineUser.country_code
+    });
+
+  });
+
+  console.log(worldSeries)
+  worldSeries.series.data = worldSeries.markerData;
+}
+
+// Drill-down map end
+
 // Hooks
 const chartUpdatedHook = {
   mounted() {
-    this.handleEvent("update_presence_list", ({presence_list}) => { console.log(presence_list); imageSeries.data = presence_list })
+    this.handleEvent("update_presence_list", ({presence_list}) => { console.log(presence_list); setupOnlineUsers(presence_list) })
   }
 }
 
