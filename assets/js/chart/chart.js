@@ -50,10 +50,10 @@ imageSeriesTemplate.propertyFields.longitude = "longitude";
 imageSeries.data = [];
 
 // Hooks
-let ChartUpdate = {
+const chartUpdatedHook = {
   mounted() {
     this.handleEvent("update_presence_list", ({presence_list}) => { console.log(presence_list); imageSeries.data = presence_list })
   }
 }
 
-export default ChartUpdate;
+export { chartUpdatedHook }
