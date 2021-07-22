@@ -8,13 +8,17 @@ defmodule BillionDollarCounterWeb.CounterLive do
 
   @impl true
   def mount(_params, %{"ip_metadata" => ip_metadata} = session, socket) do
-    BillionDollarCounterWeb.Endpoint.subscribe(@topic)
-    Presence.track(
-      self(),
-      @topic,
-      ip_metadata.ip,
-      ip_metadata
-    )
+    case connected?(socket) do
+      true ->
+        BillionDollarCounterWeb.Endpoint.subscribe(@topic)
+        Presence.track(
+          self(),
+          @topic,
+          ip_metadata.ip,
+          ip_metadata
+        )
+      false -> nil
+    end
     counter_value = Counter.value()
     {:ok,
       socket
@@ -50,7 +54,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
     {:noreply,
       socket
       |> assign(:presence_list, Presence.list(@topic))
-      |> push_event("update_presence_list", %{presence_list: presence_list}
-      )}
+      |> push_event("update_presence_list", %{presence_list: presence_list})
+    }
   end
 end
