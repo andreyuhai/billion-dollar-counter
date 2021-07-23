@@ -101,6 +101,7 @@ homeButton.events.on("hit", function() {
     currentSeries.show();
   }
 
+  chart.titles.values[0].text = "Live User Map"
   chart.goHome();
 });
 
@@ -182,6 +183,9 @@ function createSeries(name) {
         countrySeries.geodataSource.url = "https://www.amcharts.com/lib/4/geodata/json/" + map + ".json";
         countrySeries.geodataSource.load();
       }
+
+      // Change the chart title
+      chart.titles.values[0].text = `${data.name} Live User Map`
 
       // Show new targert series
       currentSeries = onlineUserSeries[data.target].series;
