@@ -33,13 +33,6 @@ defmodule BillionDollarCounterWeb.CounterLive do
     Counter.increment()
     counter_value = Counter.value()
 
-    BillionDollarCounterWeb.Endpoint.broadcast_from(
-      self(),
-      @topic,
-      "update_counter_value",
-      %{counter_value: counter_value}
-    )
-
     {:noreply,
       socket
       |> assign(counter_value: counter_value)
