@@ -16,9 +16,10 @@ defmodule BillionDollarCounter.Application do
       # Start Presence
       BillionDollarCounterWeb.Presence,
       # Start the Endpoint (http/https)
-      BillionDollarCounterWeb.Endpoint
+      BillionDollarCounterWeb.Endpoint,
       # Start a worker by calling: BillionDollarCounter.Worker.start_link(arg)
       # {BillionDollarCounter.Worker, arg}
+      BillionDollarCounterWeb.ValueBroadcaster
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
