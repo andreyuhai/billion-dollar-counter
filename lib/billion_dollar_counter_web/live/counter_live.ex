@@ -30,8 +30,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
 
   @impl true
   def handle_event("inc", _session, socket) do
-    Counter.increment()
-    counter_value = Counter.value()
+    Task.start_link(fn -> Counter.increment() end)
 
     {:noreply,
       socket
