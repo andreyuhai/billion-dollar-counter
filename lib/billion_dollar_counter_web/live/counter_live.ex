@@ -17,12 +17,13 @@ defmodule BillionDollarCounterWeb.CounterLive do
           ip_metadata.ip,
           ip_metadata
         )
+
       false -> nil
     end
-    counter_value = Counter.value()
+
     {:ok,
       socket
-      |> assign(:counter_value, counter_value)
+      |> assign(:counter_value, Counter.value())
       |> assign(:presence_list, Presence.list(@topic))
     }
   end
@@ -31,7 +32,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
   def handle_event("inc", _session, socket) do
     Counter.increment()
     counter_value = Counter.value()
-    socket = assign(socket, counter_value: counter_value)
+
     BillionDollarCounterWeb.Endpoint.broadcast_from(
       self(),
       @topic,
@@ -39,7 +40,10 @@ defmodule BillionDollarCounterWeb.CounterLive do
       %{counter_value: counter_value}
     )
 
-    {:noreply, socket}
+    {:noreply,
+      socket
+      |> assign(counter_value: counter_value)
+    }
   end
 
   @impl true
