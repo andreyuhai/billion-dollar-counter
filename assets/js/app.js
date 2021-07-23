@@ -21,6 +21,21 @@ import { Hooks as ChartHooks } from "./chart/hooks"
 
 let Hooks = {};
 Hooks.chartUpdated = ChartHooks.chartUpdatedHook
+Hooks.counterUpdated = {
+  mounted() {
+    this.handleEvent("update_counter_value", ({counter_value}) => {
+      let counterValueDiv = document.getElementById("counter-value")
+      let oldCount = Number(counterValueDiv.textContent)
+
+      // Update the counter only if the oldCount is less than
+      // the counter_value broadcast
+      if(counter_value > oldCount) {
+	console.log("Updating the counter")
+	counterValueDiv.textContent = counter_value;
+      }
+    })
+  }
+}
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
