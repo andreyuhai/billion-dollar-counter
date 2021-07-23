@@ -34,7 +34,7 @@ defmodule BillionDollarCounterWeb.CounterLive do
 
     {:noreply,
       socket
-      |> assign(counter_value: counter_value)
+      |> assign(counter_value: socket.assigns.counter_value + 1)
     }
   end
 
