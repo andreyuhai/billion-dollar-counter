@@ -32,13 +32,18 @@ defmodule BillionDollarCounterWeb.CounterLive do
     Counter.increment()
     counter_value = Counter.value()
     socket = assign(socket, counter_value: counter_value)
-    BillionDollarCounterWeb.Endpoint.broadcast_from(self(), @topic, "inc", %{counter_value: counter_value})
+    BillionDollarCounterWeb.Endpoint.broadcast_from(
+      self(),
+      @topic,
+      "update_counter_value",
+      %{counter_value: counter_value}
+    )
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_info(%{event: "inc", payload: payload}, socket) do
+  def handle_info(%{event: "update_counter_value", payload: payload}, socket) do
     {:noreply, assign(socket, payload)}
   end
 
