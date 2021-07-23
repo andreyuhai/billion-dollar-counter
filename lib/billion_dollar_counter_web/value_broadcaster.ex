@@ -21,6 +21,6 @@ defmodule BillionDollarCounterWeb.ValueBroadcaster do
   end
 
   defp schedule_counter_value_broadcast() do
-    Process.send_after(self(), :work, 20 * 1000)
+    Process.send_after(self(), :work, 5 * 1000)
   end
 end
