@@ -13,7 +13,6 @@ defmodule BillionDollarCounterWeb.ValueBroadcaster do
   end
 
   def handle_info(:work, state) do
-    IO.puts("B R O A D C A S T I N G =================>")
     Endpoint.broadcast("counter", "update_counter_value", %{counter_value: Counter.value()})
 
     schedule_counter_value_broadcast()
