@@ -2,6 +2,10 @@
 
 https://billion-dollar-counter.gigalixirapp.com/
 
+### Screenshot
+
+![Billion-dollar counter](https://i.imgur.com/4I1rXB3.png)
+
 ### Why?
 
 Why not? I just wanted to be more comfortable with Elixir & Phoenix (LiveView in particular) hence wanted to build something fun, or stupid you might call. You must have seen the comparison of a billion dollar in grains of rice, if not you can watch it [here](https://www.youtube.com/watch?v=qSOVBiEotaw), I am creating this counter just to see how long it would take for people to collectively count to a billion, so maybe we can get a better understanding of how much money it really is, if we can ever get to a billion LOL.
