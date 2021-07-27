@@ -2,9 +2,7 @@
 
 https://billion-dollar-counter.gigalixirapp.com/
 
-### Screenshot
-
-![Billion-dollar counter](https://i.imgur.com/4I1rXB3.png)
+![Billion-dollar counter](https://i.imgur.com/pqOgXHg.mp4)
 
 ### Why?
 
