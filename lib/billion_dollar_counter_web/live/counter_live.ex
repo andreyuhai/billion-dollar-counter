@@ -39,12 +39,19 @@ defmodule BillionDollarCounterWeb.CounterLive do
   end
 
   @impl true
-  def handle_info(%{event: "update_counter_value", payload: payload}, socket) do
-    {:noreply,
-      socket
-      |> assign(payload)
-      |> push_event("update_counter_value", payload)
-    }
+  def handle_info(%{event: "update_counter_value", payload: %{counter_value: counter_value} = payload}, socket) do
+    case counter_value > socket.assigns.counter_value do
+      true ->
+        {:noreply,
+          socket
+          |> assign(payload)
+          # |> push_event("update_counter_value", payload)
+        }
+
+      false ->
+        {:noreply,
+          socket}
+    end
   end
 
   @impl true
