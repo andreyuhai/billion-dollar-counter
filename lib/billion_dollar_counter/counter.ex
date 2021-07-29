@@ -11,6 +11,6 @@ defmodule BillionDollarCounter.Counter do
   end
 
   def value do
-    length(Repo.all(Increment))
+    Repo.one(from i in Increment, select: count(i.id))
   end
 end
