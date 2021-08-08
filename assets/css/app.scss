@@ -15,6 +15,7 @@
 .phx-disconnected{
   cursor: wait;
 }
+
 .phx-disconnected *{
   pointer-events: none;
 }
@@ -91,12 +92,11 @@
 
 #chartdiv {
   width: auto;
-  height: 500px;
+  height: 100vh;
 }
 
 #counter {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .counter-value {
@@ -110,4 +110,53 @@ nav ul li {
 
 header section {
   justify-content: center;
+}
+
+header nav a {
+  display: inline;
+}
+
+nav a {
+  padding: 7px 20px;
+  border-radius: 7px;
+  margin-right: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+  color: black;
+  font-family: sans-serif, arial;
+  font-weight: 100;
+}
+
+header {
+  margin: 0;
+  position: fixed;
+  border: none;
+  z-index: 99;
+  background: transparent;
+  top: 20px;
+  left: 20px;
+}
+
+.section {
+  min-height: 100vh;
+  position: relative;
+  text-align: center;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.counter-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
 }
