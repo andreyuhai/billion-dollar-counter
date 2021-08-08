@@ -11,14 +11,11 @@
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="/">Billion Dollar Counter</a></li>
-            <li><a href="#chartdiv">Live User Map</a></li>
-          </ul>
-        </nav>
-      </section>
+      <nav role="navigation">
+        <a href="/">Billion Dollar Counter</a>
+        <a id="foo" href="#counter">Hide the Counter</a>
+        <a href="#chartdiv">About</a>
+      </nav>
     </header>
     <%= @inner_content %>
   </body>
