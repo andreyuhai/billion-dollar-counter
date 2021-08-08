@@ -1,7 +1,7 @@
-<section>
-  <div id="counter">
+<div class="section">
+  <div id="counter" class="counter-wrapper">
     <span id="counter-value" class="counter-value" phx-hook="counterUpdated"><%= @counter_value %></span>
     <div><%= link "Increment", to: "#", phx_click: "inc", class: "button" %></div>
   </div>
   <div id="chartdiv" phx-update="ignore" phx-hook="chartUpdated"></div>
-</section>
+</div>
