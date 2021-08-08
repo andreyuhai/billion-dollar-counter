@@ -18,6 +18,7 @@ import topbar from "topbar"
 import {LiveSocket} from "phoenix_live_view"
 
 import { Hooks as ChartHooks } from "./chart/hooks"
+import "./counter"
 
 let Hooks = {};
 Hooks.chartUpdated = ChartHooks.chartUpdatedHook
@@ -30,8 +31,8 @@ Hooks.counterUpdated = {
       // Update the counter only if the oldCount is less than
       // the counter_value broadcast
       if(counter_value > oldCount) {
-	console.log("Updating the counter")
-	counterValueDiv.textContent = counter_value;
+        console.log("Updating the counter")
+        counterValueDiv.textContent = counter_value;
       }
     })
   }
